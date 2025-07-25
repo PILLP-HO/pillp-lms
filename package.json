@@ -1,0 +1,36 @@
+{
+  "name": "in.pillp.lms",
+  "version": "1.0.0",
+  "description": "A dedicated backend server for leave management system",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "leave",
+    "management",
+    "system",
+    "excel"
+  ],
+  "author": "Rohan Debnath",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "morgan": "^1.10.1",
+    "nanoid": "^5.1.5",
+    "prettier": "^3.6.2",
+    "twilio": "^5.7.3",
+    "uuid": "^11.1.0",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
