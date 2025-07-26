@@ -16,21 +16,16 @@ import { getHrData } from "../utils/helpers/hr.helper.js";
 import { getPartnerData } from "../utils/helpers/partner.helper.js";
 
 const managerLogin = asyncHandler(async (req, res) => {
-  const { employeeCode, department, password } = req.body;
+  const { employeeCode, password } = req.body;
 
-  if (
-    !validateFields(req.body, ["employeeCode", "department", "password"], res)
-  )
-    return;
+  if (!validateFields(req.body, ["employeeCode", "password"], res)) return;
 
   for (const manager of managerList) {
     const empCode = manager["Employee Code"];
-    const empDept = manager["Department"];
     const empPassword = manager["Password"];
 
     if (
       empCode.toLowerCase() === employeeCode.toLowerCase() &&
-      empDept.toLowerCase() === department.toLowerCase() &&
       String(empPassword) === String(password)
     ) {
       return res.status(200).json(new ApiRes(200, manager));
@@ -234,9 +229,4 @@ const submitManagerLeaveApplication = asyncHandler(async (req, res) => {
     .json(new ApiRes(200, null, "Leave application submitted successfully!"));
 });
 
-export {
-  managerLogin,
-  getPendingLeaves,
-  changeLeaveApplicationStatus,
-  submitManagerLeaveApplication,
-};
+export { managerLogin, getPendingLeaves, changeLeaveApplicationStatus };

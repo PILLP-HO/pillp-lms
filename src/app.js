@@ -47,12 +47,14 @@ import employeeRoutes from "../routes/employee.routes.js";
 import managerRoute from "../routes/manager.route.js";
 import hrRoute from "../routes/hr.routes.js";
 import partnerRoute from "../routes/partner.routes.js";
+import hrManagerRoute from "../routes/hrManager.routes.js";
 
 // --- ROUTES MIDDLEWARES --->
 app.use(`${apiVersion}/employee`, employeeRoutes);
 app.use(`${apiVersion}/manager`, managerRoute);
 app.use(`${apiVersion}/hr`, hrRoute);
 app.use(`${apiVersion}/partner`, partnerRoute);
+app.use(`${apiVersion}/hr-manager`, hrManagerRoute);
 
 // --- ERROR HANDLER MIDDLEWARE --->
 app.use((err, req, res, next) => {

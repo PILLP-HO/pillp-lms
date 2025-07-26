@@ -238,9 +238,4 @@ const submitHrLeaveApplication = asyncHandler(async (req, res) => {
     .json(new ApiRes(200, null, "Leave application submitted successfully!"));
 });
 
-export {
-  hrLogin,
-  getPendingLeaves,
-  changeLeaveApplicationStatus,
-  submitHrLeaveApplication,
-};
+export { hrLogin, getPendingLeaves, changeLeaveApplicationStatus };
