@@ -15,7 +15,7 @@ app.listen(process.env.PORT || 3001, () => {
 });
 
 app.all("/", (_, res) => {
-  consoleLogger.info("Just got a request for EatHut API's.");
+  consoleLogger.info("Just got a request for PILLP API's.");
   res.send(`
         <center>
           <b style="font-size: 42px;">
@@ -32,14 +32,14 @@ app.all("/", (_, res) => {
 app.get("/health", (_, res) => res.send("Healthy"));
 
 app.get(
-  "/download-employee-leaves",
+  "/api/v1/download-employee-leaves",
   asyncHandler(async (req, res) => {
     return res.download(getExcelFilePath("employee"));
   })
 );
 
 app.get(
-  "/download-hr-manager-leaves",
+  "/api/v1/download-hr-manager-leaves",
   asyncHandler(async (req, res) => {
     return res.download(getExcelFilePath("hr"));
   })
