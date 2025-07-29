@@ -8,6 +8,7 @@ import {
   hrLeaveApplications,
   updateHrLeaveList,
   addHrLeaveApplication,
+  managerList,
 } from "../services/excel.services.js";
 import {
   formatWhatsappNumber,
@@ -69,10 +70,19 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
     leaveFor = "HR/Manager";
   }
 
-  // Find the associated employee
-  const employee = employeeList.find(
-    (emp) => emp["Employee Code"] === leave["Employee Code"]
-  );
+  const employeeCode = leave["Employee Code"].toLowerCase();
+
+  let employee =
+    employeeList.find(
+      (emp) => emp["Employee Code"].toLowerCase() === employeeCode
+    ) ||
+    managerList.find(
+      (mgr) => mgr["Employee Code"].toLowerCase() === employeeCode
+    )
+    || hrList.find(
+      (mgr) => mgr["Employee Code"].toLowerCase() === employeeCode
+    );
+
   if (!employee) {
     return res.status(404).json(new ApiRes(404, null, "Employee not found!"));
   }

@@ -4,7 +4,7 @@ import { formatWhatsappNumber } from "../utilities.js";
 const getHrData = () => {
   const hr = hrList.find(
     (hr) =>
-      hr["Department"]?.toLowerCase() === "hr executive" &&
+      hr["Designation"]?.toLowerCase() === "hr executive" &&
       hr["Work Location"]?.toLowerCase() === "all"
   );
 

@@ -5,6 +5,8 @@ import {
   partnerList,
   hrLeaveApplications,
   updateHrLeaveList,
+  hrList,
+  managerList,
 } from "../services/excel.services.js";
 import {
   formatWhatsappNumber,
@@ -15,11 +17,11 @@ import { getHrData } from "../utils/helpers/hr.helper.js";
 const partnerLogin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  if (!validateFields(req.body, ["employeeCode", "password"], res)) return;
+  if (!validateFields(req.body, ["email", "password"], res)) return;
 
   for (const partner of partnerList) {
-    const partnerEmail = hr["Email"];
-    const partnerPassword = hr["Password"];
+    const partnerEmail = partner["Email"];
+    const partnerPassword = partner["Password"];
 
     if (
       partnerEmail.toLowerCase() === email.toLowerCase() &&
@@ -55,10 +57,13 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
     return res.status(404).json(new ApiRes(404, null, "Leave not found!"));
   }
 
-  // Find the associated employee
-  const employee = employeeList.find(
-    (emp) => emp["Employee Code"] === leave["Employee Code"]
-  );
+  const employeeCode = leave["Employee Code"].toLowerCase();
+
+  let employee =
+    hrList.find((hr) => hr["Employee Code"].toLowerCase() === employeeCode) ||
+    managerList.find(
+      (mgr) => mgr["Employee Code"].toLowerCase() === employeeCode
+    );
 
   if (!employee) {
     return res.status(404).json(new ApiRes(404, null, "Employee not found!"));
@@ -84,9 +89,11 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
       "partner_approval",
       {
         1: employee["Employee Name"],
-        2: employee["From Date"],
-        3: employee["To Date"],
-        4: employee["Leave Reason"],
+        2: employee["Employee Code"],
+        3: employee["Work Location"],
+        4: employee["From Date"],
+        5: employee["To Date"],
+        6: employee["Leave Reason"],
       }
     );
   } else {
@@ -99,6 +106,7 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
         3: employee["To Date"],
         4: employee["Leave Reason"],
       }
+      
     );
   }
 

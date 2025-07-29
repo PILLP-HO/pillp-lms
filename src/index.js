@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import { app } from "./app.js";
 import { consoleLogger } from "../utils/logger.js";
 import { asyncHandler } from "../utils/async.handler.js";
+import { getExcelFilePath } from "../services/excel.services.js";
 
 dotenv.config({
   path: "./.env",
@@ -29,3 +30,17 @@ app.all("/", (_, res) => {
 });
 
 app.get("/health", (_, res) => res.send("Healthy"));
+
+app.get(
+  "/download-employee-leaves",
+  asyncHandler(async (req, res) => {
+    return res.download(getExcelFilePath("employee"));
+  })
+);
+
+app.get(
+  "/download-hr-manager-leaves",
+  asyncHandler(async (req, res) => {
+    return res.download(getExcelFilePath("hr"));
+  })
+);
