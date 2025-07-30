@@ -106,7 +106,6 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
         3: employee["To Date"],
         4: employee["Leave Reason"],
       }
-      
     );
   }
 

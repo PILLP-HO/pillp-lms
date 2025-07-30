@@ -37,6 +37,14 @@ const employeeLogin = asyncHandler(async (req, res) => {
     const empName = employee["Employee Name"];
     const empWhatsapp = employee["WhatsApp Number"];
 
+    console.table([
+      empName,
+      empName.toLowerCase(),
+      name,
+      name.toLowerCase(),
+      empWhatsapp,
+    ]);
+
     if (
       empName.toLowerCase() === name.toLowerCase() &&
       String(empWhatsapp).toLowerCase() === whatsappNumber.toLowerCase()

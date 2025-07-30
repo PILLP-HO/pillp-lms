@@ -5,6 +5,7 @@ import {
   managerList,
   hrLeaveApplications,
   addHrLeaveApplication,
+  hrManagerList,
 } from "../services/excel.services.js";
 import {
   formatWhatsappNumber,
@@ -18,26 +19,16 @@ const hrManagerLogin = asyncHandler(async (req, res) => {
 
   if (!validateFields(req.body, ["employeeCode", "password"], res)) return;
 
-  // First try to find in managerList
-  const manager = managerList.find(
-    (m) =>
-      m["Employee Code"].toLowerCase() === employeeCode.toLowerCase() &&
-      String(m["Password"]) === String(password)
-  );
+  for (const user of hrManagerList) {
+    const empCode = user["Employee Code"];
+    const empPassword = user["Password"];
 
-  if (manager) {
-    return res.status(200).json(new ApiRes(200, manager));
-  }
-
-  // Now check hrList (department not needed)
-  const hr = hrList.find(
-    (h) =>
-      h["Employee Code"].toLowerCase() === employeeCode.toLowerCase() &&
-      String(h["Password"]) === String(password)
-  );
-
-  if (hr) {
-    return res.status(200).json(new ApiRes(200, hr));
+    if (
+      empCode.toLowerCase() === employeeCode.toLowerCase() &&
+      String(empPassword) === String(password)
+    ) {
+      return res.status(200).json(new ApiRes(200, user));
+    }
   }
 
   // If neither found
@@ -84,18 +75,9 @@ const submitHrManagerLeaveApplication = asyncHandler(async (req, res) => {
       .json(new ApiRes(400, null, "From date cannot be after To date!"));
   }
 
-  let user = managerList.find(
-    (m) => m["Employee Code"].toLowerCase() === employeeCode.toLowerCase()
+  let user = hrManagerList.find(
+    (user) => user["Employee Code"].toLowerCase() === employeeCode.toLowerCase()
   );
-
-  let userType = "Manager";
-
-  if (!user) {
-    user = hrList.find(
-      (hr) => hr["Employee Code"].toLowerCase() === employeeCode.toLowerCase()
-    );
-    userType = "HR";
-  }
 
   if (!user) {
     return res
@@ -125,7 +107,13 @@ const submitHrManagerLeaveApplication = asyncHandler(async (req, res) => {
 
   const data = {
     "Leave ID": generateLeaveId(),
-    "Role": "Manager",
+    "Role": hrList.find(
+      (hr) =>
+        hr["Employee Code"].toLowerCase() ===
+        user["Employee Code"].toLowerCase()
+    )
+      ? "HR"
+      : "Manager",
     "Employee Code": user["Employee Code"],
     "Employee Name": user["Employee Name"],
     "WhatsApp Number": user["WhatsApp Number"],
