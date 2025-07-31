@@ -91,9 +91,9 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
         1: employee["Employee Name"],
         2: employee["Employee Code"],
         3: employee["Work Location"],
-        4: employee["From Date"],
-        5: employee["To Date"],
-        6: employee["Leave Reason"],
+        4: leave["From Date"],
+        5: leave["To Date"],
+        6: leave["Leave Reason"],
       }
     );
   } else {
@@ -102,9 +102,9 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
       "partner_rejection",
       {
         1: employee["Employee Name"],
-        2: employee["From Date"],
-        3: employee["To Date"],
-        4: employee["Leave Reason"],
+        2: leave["From Date"],
+        3: leave["To Date"],
+        4: leave["Leave Reason"],
       }
     );
   }
