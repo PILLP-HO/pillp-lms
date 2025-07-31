@@ -72,7 +72,7 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
 
   // Update leave status
   const isApproved = status === "Approved";
-  leave["Status"] = isApproved ? "Manager Approved" : "Manager Rejected";
+  leave["Status"] = isApproved ? "Partner Approved" : "Partner Rejected";
   leave["Last Updated"] = new Date().toISOString().split("T")[0];
 
   // Update in-memory list
