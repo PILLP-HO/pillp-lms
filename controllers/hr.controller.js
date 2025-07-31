@@ -11,6 +11,7 @@ import {
   managerList,
 } from "../services/excel.services.js";
 import {
+  formatDateToShortMonth,
   formatWhatsappNumber,
   generateLeaveId,
   sendWhatsappMessage,
@@ -78,10 +79,8 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
     ) ||
     managerList.find(
       (mgr) => mgr["Employee Code"].toLowerCase() === employeeCode
-    )
-    || hrList.find(
-      (mgr) => mgr["Employee Code"].toLowerCase() === employeeCode
-    );
+    ) ||
+    hrList.find((mgr) => mgr["Employee Code"].toLowerCase() === employeeCode);
 
   if (!employee) {
     return res.status(404).json(new ApiRes(404, null, "Employee not found!"));
@@ -117,15 +116,15 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
       isApproved
         ? {
             1: employee["Employee Name"],
-            2: leave["From Date"],
-            3: leave["To Date"],
+            2: formatDateToShortMonth(leave["From Date"]),
+            3: formatDateToShortMonth(leave["To Date"]),
             4: "N/A",
             5: leave["Leave Reason"],
           }
         : {
             1: employee["Employee Name"],
-            2: leave["From Date"],
-            3: leave["To Date"],
+            2: formatDateToShortMonth(leave["From Date"]),
+            3: formatDateToShortMonth(leave["To Date"]),
             4: leave["Leave Reason"],
           }
     );
@@ -135,8 +134,8 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
       isApproved ? "hr_approval_regular" : "hr_rejection_regular",
       {
         1: employee["Employee Name"],
-        2: leave["From Date"],
-        3: leave["To Date"],
+        2: formatDateToShortMonth(leave["From Date"]),
+        3: formatDateToShortMonth(leave["To Date"]),
       }
     );
   }

@@ -58,4 +58,15 @@ function generateLeaveId() {
   return `LV-${timestamp}-${randomPart}`;
 }
 
-export { formatWhatsappNumber, sendWhatsappMessage, generateLeaveId };
+function formatDateToShortMonth(dateStr) {
+  const date = new Date(dateStr);
+  const options = { day: "2-digit", month: "short", year: "numeric" };
+  return date.toLocaleDateString("en-GB", options).replace(/ /g, "-");
+}
+
+export {
+  formatWhatsappNumber,
+  sendWhatsappMessage,
+  generateLeaveId,
+  formatDateToShortMonth,
+};

@@ -8,6 +8,7 @@ import {
   hrManagerList,
 } from "../services/excel.services.js";
 import {
+  formatDateToShortMonth,
   formatWhatsappNumber,
   generateLeaveId,
   sendWhatsappMessage,
@@ -121,8 +122,8 @@ const submitHrManagerLeaveApplication = asyncHandler(async (req, res) => {
     "Designation": user["Designation"],
     "Department": user["Department"],
     "Work Location": user["Work Location"],
-    "From Date": fromDate,
-    "To Date": toDate,
+    "From Date": formatDateToShortMonth(fromDate),
+    "To Date": formatDateToShortMonth(toDate),
     "Leave Reason": leaveReason.trim(),
     "Status": "Pending",
     "Submission Date": today,
@@ -137,8 +138,8 @@ const submitHrManagerLeaveApplication = asyncHandler(async (req, res) => {
     {
       1: user["Employee Name"],
       2: user["Work Location"],
-      3: fromDate,
-      4: toDate,
+      3: formatDateToShortMonth(fromDate),
+      4: formatDateToShortMonth(toDate),
       5: leaveReason,
     }
   );

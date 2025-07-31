@@ -11,6 +11,7 @@ import {
 } from "../services/excel.services.js";
 import { getManagerData } from "../utils/helpers/manager.helper.js";
 import {
+  formatDateToShortMonth,
   formatWhatsappNumber,
   sendWhatsappMessage,
 } from "../utils/utilities.js";
@@ -36,14 +37,6 @@ const employeeLogin = asyncHandler(async (req, res) => {
   for (const employee of employeeList) {
     const empName = employee["Employee Name"];
     const empWhatsapp = employee["WhatsApp Number"];
-
-    console.table([
-      empName,
-      empName.toLowerCase(),
-      name,
-      name.toLowerCase(),
-      empWhatsapp,
-    ]);
 
     if (
       empName.toLowerCase() === name.toLowerCase() &&
@@ -138,8 +131,8 @@ const submitEmployeeLeaveApplication = asyncHandler(async (req, res) => {
     "Designation": employee["Designation"],
     "Department": employee["Department"],
     "Work Location": employee["Work Location"],
-    "From Date": fromDate,
-    "To Date": toDate,
+    "From Date": formatDateToShortMonth(fromDate),
+    "To Date": formatDateToShortMonth(toDate),
     "Leave Reason": leaveReason.trim(),
     "Manager Employee Code": managerData["Employee Code"],
     "Status": "Pending",
@@ -157,8 +150,8 @@ const submitEmployeeLeaveApplication = asyncHandler(async (req, res) => {
       2: employee["Employee Code"],
       3: employee["Designation"],
       4: employee["Work Location"],
-      5: fromDate,
-      6: toDate,
+      5: formatDateToShortMonth(fromDate),
+      6: formatDateToShortMonth(toDate),
       7: leaveReason,
     }
   );

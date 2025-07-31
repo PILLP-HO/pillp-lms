@@ -11,6 +11,7 @@ import {
 import {
   formatWhatsappNumber,
   sendWhatsappMessage,
+  formatDateToShortMonth,
 } from "../utils/utilities.js";
 import { getHrData } from "../utils/helpers/hr.helper.js";
 
@@ -91,8 +92,8 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
         1: employee["Employee Name"],
         2: employee["Employee Code"],
         3: employee["Work Location"],
-        4: leave["From Date"],
-        5: leave["To Date"],
+        4: formatDateToShortMonth(leave["From Date"]),
+        5: formatDateToShortMonth(leave["To Date"]),
         6: leave["Leave Reason"],
       }
     );
@@ -102,8 +103,8 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
       "partner_rejection",
       {
         1: employee["Employee Name"],
-        2: leave["From Date"],
-        3: leave["To Date"],
+        2: formatDateToShortMonth(leave["From Date"]),
+        3: formatDateToShortMonth(leave["To Date"]),
         4: leave["Leave Reason"],
       }
     );
