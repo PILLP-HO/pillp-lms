@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const dataDir = path.join(__dirname, "..", "data");
-const generatedDir = path.join(dataDir, "generated");
+const generatedDir = path.join("/tmp", "generated");
 
 // Make sure the generated folder exists
 if (!fs.existsSync(generatedDir)) {
