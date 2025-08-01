@@ -34,7 +34,6 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/utils ./utils
 COPY --from=builder /app/middlewares ./middlewares
 COPY --from=builder /app/data ./data
-COPY --from=builder /app/logs ./logs
 
 # Expose port used by Express
 EXPOSE 3000
