@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy only the package.json and lockfile
 COPY package*.json ./
 
-# Install only production dependencies
-RUN npm ci --omit=dev --legacy-peer-deps
+# Install dependencies (only production, safer way)
+RUN npm install --omit=dev --legacy-peer-deps
 
 # Copy all source files
 COPY . .
