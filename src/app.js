@@ -18,7 +18,6 @@ const app = express();
 app.use(cors(corsOption));
 app.use(express.json({ limit: "24kb" }));
 app.use(express.urlencoded({ limit: "24kb", extended: true }));
-app.use(express.static("public"));
 
 // --- MORGAN LOGGING MIDDLEWARE --->
 app.use(
