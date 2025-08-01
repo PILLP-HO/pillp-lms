@@ -1,6 +1,8 @@
 node_modules
-dist
-coverage
+npm-debug.log
 Dockerfile
-.git
+.dockerignore
 .env
+.git
+.gitignore
+.prettierignore
