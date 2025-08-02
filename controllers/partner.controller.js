@@ -7,6 +7,7 @@ import {
   updateHrLeaveList,
   hrList,
   managerList,
+  hrManagerList,
 } from "../services/excel.services.js";
 import {
   formatWhatsappNumber,
@@ -63,6 +64,9 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
   let employee =
     hrList.find((hr) => hr["Employee Code"].toLowerCase() === employeeCode) ||
     managerList.find(
+      (mgr) => mgr["Employee Code"].toLowerCase() === employeeCode
+    ) ||
+    hrManagerList.find(
       (mgr) => mgr["Employee Code"].toLowerCase() === employeeCode
     );
 

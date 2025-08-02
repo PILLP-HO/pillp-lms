@@ -9,6 +9,7 @@ import {
   updateHrLeaveList,
   addHrLeaveApplication,
   managerList,
+  hrManagerList,
 } from "../services/excel.services.js";
 import {
   formatDateToShortMonth,
@@ -80,7 +81,10 @@ const changeLeaveApplicationStatus = asyncHandler(async (req, res) => {
     managerList.find(
       (mgr) => mgr["Employee Code"].toLowerCase() === employeeCode
     ) ||
-    hrList.find((mgr) => mgr["Employee Code"].toLowerCase() === employeeCode);
+    hrList.find((mgr) => mgr["Employee Code"].toLowerCase() === employeeCode) ||
+    hrManagerList.find(
+      (mgr) => mgr["Employee Code"].toLowerCase() === employeeCode
+    );
 
   if (!employee) {
     return res.status(404).json(new ApiRes(404, null, "Employee not found!"));
