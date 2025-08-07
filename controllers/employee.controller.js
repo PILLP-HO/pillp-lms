@@ -30,18 +30,14 @@ const printAllLists = asyncHandler(async (req, res) => {
 });
 
 const employeeLogin = asyncHandler(async (req, res) => {
-  const { name, whatsappNumber } = req.body;
+  const { whatsappNumber } = req.body;
 
-  if (!validateFields(req.body, ["name", "whatsappNumber"], res)) return;
+  if (!validateFields(req.body, ["whatsappNumber"], res)) return;
 
   for (const employee of employeeList) {
-    const empName = employee["Employee Name"];
     const empWhatsapp = employee["WhatsApp Number"];
 
-    if (
-      empName.toLowerCase() === name.toLowerCase() &&
-      String(empWhatsapp).toLowerCase() === whatsappNumber.toLowerCase()
-    ) {
+    if (String(empWhatsapp).toLowerCase() === whatsappNumber.toLowerCase()) {
       return res.status(200).json(new ApiRes(200, employee));
     }
   }
